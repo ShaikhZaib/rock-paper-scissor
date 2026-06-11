@@ -1,26 +1,43 @@
 function getComputerChoice(){
     let choice = Math.floor(Math.random() * 3) + 1;
-    return choice;
+    if(choice == 1){
+        return "rock";
+    } else if(choice == 2){
+        return "paper";
+    } else{
+        return "scissor";
+    }
 }
 
 function getPlayerChoice(){
     let choice = prompt("Enter your choice(1.Rock, 2.Paper, 3.Scissor): ");
-    if(choice == 1){
-        return 1;
-    } else if(choice == 2){
-        return 2;
-    } else if(choice == 3){
-        return 3;
-    } else{
-        console.log("Choose from given choices");
-    }
+    
+    return choice;
 }
 
-let humanScore = 0;
+function playRound(playerChoice, computerChoice){
+    player = playerChoice.toLowerCase();
+    computer = computerChoice;
+    
+    if(player == computer){
+        return "It's a tie!";
+    }
+
+    if((player == "rock" && computer == "scissor") || (player == "paper" && computer == "rock") || (player == "scissor" && computer == "paper") ) {
+        playerScore++;
+        return `You win! ${player} beats ${computer}`;
+    } else{
+        computerScore++;
+        return `You loose! ${computer} beats ${player}`;
+    }
+
+}
+
+let playerScore = 0;
 let computerScore = 0;
 
-console.log(getComputerChoice());
+let playerChoice = getPlayerChoice();
+let computerChoice = getComputerChoice();
 
+console.log(playRound(playerChoice, computerChoice));
 
-
-console.log(getPlayerChoice());

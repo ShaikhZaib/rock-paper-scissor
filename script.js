@@ -15,7 +15,13 @@ function getPlayerChoice(){
     return choice;
 }
 
-function playRound(playerChoice, computerChoice){
+
+
+function playGame(num){
+    let playerScore = 0;
+    let computerScore = 0;
+
+    function playRound(playerChoice, computerChoice){
     player = playerChoice.toLowerCase();
     computer = computerChoice;
     
@@ -31,13 +37,26 @@ function playRound(playerChoice, computerChoice){
         return `You loose! ${computer} beats ${player}`;
     }
 
+    }
+
+    for(i = 0; i < num; i++){
+        let playerChoice = getPlayerChoice();
+        let computerChoice = getComputerChoice();
+
+        let roundResult = playRound(playerChoice, computerChoice);
+
+        console.log(`Round ${i + 1} : ${roundResult}`);
+    }
+
+    console.log("Player Score is : ", playerScore);
+    console.log("Computer Score is : ", computerScore);
+
+    if(playerScore > computerScore){
+        console.log("Player wins");
+    } else{
+        console.log("Computer wins");
+    }
 }
 
-let playerScore = 0;
-let computerScore = 0;
-
-let playerChoice = getPlayerChoice();
-let computerChoice = getComputerChoice();
-
-console.log(playRound(playerChoice, computerChoice));
+playGame(5);
 

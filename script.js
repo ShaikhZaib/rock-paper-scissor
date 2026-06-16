@@ -1,3 +1,11 @@
+let computerScore = 0;
+let playerScore = 0;
+
+let buttons = document.querySelectorAll(".choice-btn");
+buttons.forEach(button => button.addEventListener("click", getPlayerChoice));
+
+let display = document.querySelector("#display");
+
 function getComputerChoice(){
     let choice = Math.floor(Math.random() * 3) + 1;
     if(choice == 1){
@@ -5,31 +13,30 @@ function getComputerChoice(){
     } else if(choice == 2){
         return "paper";
     } else{
-        return "scissor";
+        return "scissors";
     }
 }
 
-function getPlayerChoice(){
-    let choice = prompt("Enter your choice(1.Rock, 2.Paper, 3.Scissor): ");
-    
-    return choice;
+function getPlayerChoice(event){
+    if(playerScore === 5 || computerScore === 5) return;
+
+    let playerChoice = event.target.value;
+    let result = playRound(playerChoice);
+    display.innerText = `${result} | Score: You ${playerScore} - ${computerScore} computer`;
+
+    if(playerScore === 5) display.innerText = "Game Over! You won the match!";
+    if(computerScore === 5) display.innerText = "Game Over! Computer won the match!";
 }
 
-
-
-function playGame(num){
-    let playerScore = 0;
-    let computerScore = 0;
-
-    function playRound(playerChoice, computerChoice){
-    player = playerChoice.toLowerCase();
-    computer = computerChoice;
+function playRound(playerChoice){
+    player = playerChoice;
+    computer = getComputerChoice();
     
     if(player == computer){
         return "It's a tie!";
     }
 
-    if((player == "rock" && computer == "scissor") || (player == "paper" && computer == "rock") || (player == "scissor" && computer == "paper") ) {
+    if((player == "rock" && computer == "scissors") || (player == "paper" && computer == "rock") || (player == "scissors" && computer == "paper") ) {
         playerScore++;
         return `You win! ${player} beats ${computer}`;
     } else{
@@ -37,26 +44,7 @@ function playGame(num){
         return `You loose! ${computer} beats ${player}`;
     }
 
-    }
-
-    for(i = 0; i < num; i++){
-        let playerChoice = getPlayerChoice();
-        let computerChoice = getComputerChoice();
-
-        let roundResult = playRound(playerChoice, computerChoice);
-
-        console.log(`Round ${i + 1} : ${roundResult}`);
-    }
-
-    console.log("Player Score is : ", playerScore);
-    console.log("Computer Score is : ", computerScore);
-
-    if(playerScore > computerScore){
-        console.log("Player wins");
-    } else{
-        console.log("Computer wins");
-    }
 }
 
-playGame(5);
+
 
